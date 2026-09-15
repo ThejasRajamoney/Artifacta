@@ -103,6 +103,7 @@ pub fn launch_sandboxed(config: &SandboxConfig) -> Result<SandboxResult, Sandbox
     }
     #[cfg(not(target_os = "windows"))]
     {
+        let _ = config;
         Err(SandboxError::NotAvailable)
     }
 }

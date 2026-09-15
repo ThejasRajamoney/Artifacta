@@ -642,6 +642,8 @@ pub fn scan(request: &YaraWorkerRequest) -> Result<YaraAnalysis, YaraError> {
 
 fn run_host(request: &YaraWorkerRequest) -> Result<DecodedOutput, YaraError> {
     validate_host_request(request)?;
+    // `request` is only reassigned inside the Windows containment block below.
+    #[cfg_attr(not(windows), allow(unused_mut))]
     let mut request = request.clone();
     let executable = std::env::current_exe().map_err(YaraError::Spawn)?;
     let mut command = Command::new(&executable);

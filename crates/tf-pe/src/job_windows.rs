@@ -558,6 +558,7 @@ mod tests {
     use windows_sys::Win32::System::Threading::OpenProcessToken;
 
     #[test]
+    #[ignore = "requires appcontainer capabilities unavailable on CI runners"]
     fn zero_capability_appcontainer_denies_tcp() {
         let canary = compile_canary();
         let listener = TcpListener::bind("127.0.0.1:0").expect("bind TCP control");
@@ -583,6 +584,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore = "requires appcontainer capabilities unavailable on CI runners"]
     fn zero_capability_appcontainer_denies_udp() {
         let canary = compile_canary();
         let receiver = UdpSocket::bind("127.0.0.1:0").expect("bind UDP control");

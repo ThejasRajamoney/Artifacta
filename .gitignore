@@ -1,0 +1,40 @@
+# JavaScript
+node_modules/
+dist/
+coverage/
+release/
+
+# Rust
+target/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+build/
+
+# Tauri generated files and bundled sidecars
+apps/desktop/src-tauri/gen/
+apps/desktop/src-tauri/binaries/
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local configuration and signing material
+.env
+.env.*
+!.env.example
+*.key
+*.pfx
+*.p12
+*.cer
+
+# Analysis artefacts must never enter source control
+cases/
+samples/
+malware/
+*.tfcase

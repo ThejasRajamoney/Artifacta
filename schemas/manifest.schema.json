@@ -1,0 +1,96 @@
+{
+  "$defs": {
+    "ArtifactVerification": {
+      "enum": [
+        "verified",
+        "mismatch",
+        "unavailable"
+      ],
+      "type": "string"
+    },
+    "ManifestFile": {
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "size_bytes": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "format",
+        "size_bytes",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "ManifestRecordDigest": {
+      "properties": {
+        "record_id": {
+          "type": "string"
+        },
+        "record_type": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "record_type",
+        "record_id",
+        "sha256"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "artifact_verification": {
+      "$ref": "#/$defs/ArtifactVerification"
+    },
+    "hash_algorithm": {
+      "type": "string"
+    },
+    "limitation": {
+      "type": "string"
+    },
+    "manifest_schema_version": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "records": {
+      "items": {
+        "$ref": "#/$defs/ManifestRecordDigest"
+      },
+      "type": "array"
+    },
+    "report": {
+      "$ref": "#/$defs/ManifestFile"
+    },
+    "snapshot_sha256": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "manifest_schema_version",
+    "hash_algorithm",
+    "snapshot_sha256",
+    "report",
+    "records",
+    "artifact_verification",
+    "limitation"
+  ],
+  "title": "IntegrityManifest",
+  "type": "object"
+}

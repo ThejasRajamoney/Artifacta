@@ -1,0 +1,65 @@
+name: PR engineering checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  frontend-node24:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run check
+      - run: npm run frontend:build --workspace @artifacta/desktop
+      - run: npm audit --omit=dev
+
+  rust-1-98-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.98.0
+          components: clippy,rustfmt
+          targets: x86_64-pc-windows-msvc
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo fmt --all -- --check
+      - run: cargo test --workspace --all-features
+      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+
+  schema-and-corpus:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.98.0
+      - uses: Swatinem/rust-cache@v2
+      - name: Checked schemas and normalized goldens
+        run: |
+          cargo test -p tf-report checked_in_schemas_match_and_validate_contract_snapshots
+          cargo test -p tf-report normalized_domain_report_and_manifest_golden_is_stable
+      - name: All 10 inert corpus hashes and outcomes
+        run: cargo test -p tf-pe all_inert_corpus_hashes_sizes_and_expected_outcomes_are_automated
+
+  dependency-audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rustsec/audit-check@v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ignore: RUSTSEC-2023-0071,RUSTSEC-2026-0222

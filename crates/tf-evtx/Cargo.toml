@@ -1,0 +1,12 @@
+[package]
+name = "tf-evtx"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+
+[dependencies]
+evtx = "0.12"
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true

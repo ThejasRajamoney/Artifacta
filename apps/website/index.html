@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artifacta &mdash; Understand Windows Executables Without Uploading</title>
+  <meta name="description" content="Artifacta is a local-first, static PE analysis tool for Windows executables. Investigate binaries without uploading them. Evidence-backed findings, YARA-X, Authenticode, and more.">
+  <meta property="og:title" content="Artifacta">
+  <meta property="og:description" content="Drop a suspicious Windows executable. Understand it without uploading it.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://artifacta.dev/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://artifacta.dev/">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F50D;</text></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">Artifacta</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html" aria-current="page">Home</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="releases.html">Releases</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1>Artifacta</h1>
+    <p>Drop a suspicious Windows executable. Understand it without uploading it.</p>
+    <div class="hero-actions">
+      <a href="releases.html" class="btn btn-primary">Release qualification status</a>
+      <a href="docs.html" class="btn btn-outline">Documentation</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2>Why Artifacta?</h2>
+      <p>Artifacta performs static analysis of Windows PE files entirely on your machine. No binaries leave your device. No cloud service required. Evidence-backed findings help you understand an executable's observable structure and static capabilities without executing it.</p>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>Local-First</h3>
+          <p>Every analysis runs on your machine. Files never leave your device. No uploads, no cloud processing.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Static PE Analysis</h3>
+          <p>Examines Portable Executable structure, imports, sections, and metadata without running the binary.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Evidence-Backed Findings</h3>
+          <p>Every conclusion is backed by concrete evidence. Inspect the data that supports each finding.</p>
+        </div>
+        <div class="feature-card">
+          <h3>No Upload Required</h3>
+          <p>Keep sensitive files on your own machine. No external service ever sees your artifacts.</p>
+        </div>
+        <div class="feature-card">
+          <h3>YARA-X Integration</h3>
+          <p>Scan with YARA rules using the YARA-X engine for pattern matching and classification.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Authenticode Verification</h3>
+          <p>Inspect digital signatures, certificate chains, and signing status of executables.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Investigation Graph</h3>
+          <p>Visualize relationships between imports, exports, resources, and metadata in an interactive graph.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Chronology</h3>
+          <p>Timeline of PE metadata changes, compilation timestamps, and embedded date information.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Case Workflow</h3>
+          <p>Organize executable investigations into cases, preserve analysis history, and compare cases.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Reports</h3>
+          <p>Generate structured reports from your investigations. Export findings for documentation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="section-inner">
+      <h2>How It Works</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>1. Drop a File</h3>
+          <p>Drag and drop a Windows executable onto Artifacta, or browse to select one.</p>
+        </div>
+        <div class="feature-card">
+          <h3>2. Static Analysis</h3>
+          <p>Artifacta inspects the PE structure, imports, resources, Authenticode signature, and more.</p>
+        </div>
+        <div class="feature-card">
+          <h3>3. Review Findings</h3>
+          <p>Examine evidence-backed findings, explore the investigation graph, and review the chronology.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-inner">
+      <h2>Important Disclaimers</h2>
+      <div class="callout callout-warning">
+        <p><strong>Signed does not mean benign. Unsigned does not mean malicious.</strong>
+        A digital signature proves identity, not trustworthiness. Artifacta shows you the signing status so you can make informed decisions.</p>
+      </div>
+      <div class="callout callout-warning">
+        <p><strong>Artifacta is not an antivirus.</strong>
+        It performs static analysis to help you understand executables. It does not detect, block, or remove malware.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="https://github.com/ThejasRajamoney/Artifacta">Source Code</a></li>
+      </ul>
+      <p>Artifacta is free and open-source. Licensed under the <a href="https://github.com/ThejasRajamoney/Artifacta/blob/main/LICENSE">Apache License 2.0</a>.</p>
+      <p class="footer-copy">&copy; 2026 Artifacta contributors.</p>
+    </div>
+  </footer>
+</body>
+</html>

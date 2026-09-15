@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "tag": "v1.0.0-rc.1",
+  "channel": "prerelease",
+  "installer": "Artifacta_1.0.0_x64-setup.exe",
+  "url": "https://github.com/ThejasRajamoney/Artifacta/releases/download/v1.0.0-rc.1/Artifacta_1.0.0_x64-setup.exe",
+  "sha256": "8f5d34bb2b4b46d29d8f248482bfc3efe95ff543653546756efff219442fc1fa",
+  "size": 5508894,
+  "released": "2026-09-15",
+  "signed": false,
+  "publicationApproved": false,
+  "notes": "Unsigned v1.0.0-rc.1 prerelease for evaluation. Stable distribution is not approved pending isolated Windows lifecycle qualification."
+}

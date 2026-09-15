@@ -1,0 +1,45 @@
+name: Nightly
+
+on:
+  schedule:
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-windows:
+    name: Nightly Windows Build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Build release
+        run: cargo build --release --manifest-path apps/desktop/src-tauri/Cargo.toml
+      - name: Run Rust tests
+        run: cargo test --workspace --all-features
+      - name: Run frontend tests
+        run: npm run test --workspace @artifacta/desktop
+      - name: Upload nightly binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacta-nightly-windows
+          path: target/release/artifacta-desktop.exe
+          retention-days: 7
+
+  build-linux:
+    name: Nightly Linux Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test --workspace --all-features

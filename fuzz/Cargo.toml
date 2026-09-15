@@ -1,0 +1,45 @@
+[package]
+name = "traceforge-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4.10"
+serde_json = "1.0.151"
+tempfile = "3.23.0"
+tf-model = { path = "../crates/tf-model" }
+tf-pe = { path = "../crates/tf-pe", features = ["dev-tools"] }
+tf-protocol = { path = "../crates/tf-protocol" }
+tf-report = { path = "../crates/tf-report" }
+
+[[bin]]
+name = "protocol"
+path = "fuzz_targets/protocol.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "model_contracts"
+path = "fuzz_targets/model_contracts.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "pe_static"
+path = "fuzz_targets/pe_static.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "report_manifest"
+path = "fuzz_targets/report_manifest.rs"
+test = false
+doc = false
+bench = false

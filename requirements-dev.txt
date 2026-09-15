@@ -1,0 +1,2 @@
+# Development-only differential oracle. Production has no Python dependency.
+pefile==2024.8.26

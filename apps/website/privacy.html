@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy &mdash; Artifacta</title>
+  <meta name="description" content="Artifacta privacy policy. No data collection, no telemetry, no cloud processing.">
+  <meta property="og:title" content="Privacy - Artifacta">
+  <meta property="og:description" content="No data collection, no telemetry, no cloud processing.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://artifacta.dev/privacy.html">
+  <link rel="canonical" href="https://artifacta.dev/privacy.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F50D;</text></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">Artifacta</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+        <li><a href="releases.html">Releases</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Privacy</h1>
+  </section>
+
+  <div class="content">
+    <h2>No Data Collection</h2>
+    <p>Artifacta does not collect, store, or transmit any personal data. There is no analytics, no tracking, and no user identification.</p>
+
+    <h2>No Telemetry</h2>
+    <p>Artifacta does not send telemetry data. No usage statistics, crash reports, or performance metrics are transmitted from the application.</p>
+
+    <h2>No Cloud Processing</h2>
+    <p>All analysis is performed locally on your machine. No file content or metadata is sent to cloud services. No third-party servers process your data.</p>
+
+    <h2>Local-First Architecture</h2>
+    <p>Artifacta is designed around a local-first architecture:</p>
+    <ul>
+      <li>All analysis runs on your device</li>
+      <li>YARA rules are stored locally</li>
+      <li>Cases and reports are saved to your local filesystem</li>
+      <li>No account creation required</li>
+      <li>No internet connection required for core functionality</li>
+    </ul>
+
+    <h2>What Data Stays on Device</h2>
+    <p>Everything. Specifically:</p>
+    <ul>
+      <li>Files you analyze</li>
+      <li>Analysis results and findings</li>
+      <li>Case data and investigation notes</li>
+      <li>Generated reports</li>
+      <li>Application settings</li>
+      <li>YARA rules you import</li>
+    </ul>
+    <p>None of this data ever leaves your machine unless you explicitly export or share it.</p>
+
+    <h2>Open Source</h2>
+    <p>Artifacta is open-source. You can verify these claims by reviewing the <a href="https://github.com/ThejasRajamoney/Artifacta">source code</a>.</p>
+
+    <h2>Changes to This Policy</h2>
+    <p>If this privacy policy changes, the updated version will be published in the repository and on this page.</p>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="https://github.com/ThejasRajamoney/Artifacta">Source Code</a></li>
+      </ul>
+      <p>Artifacta is free and open-source. Licensed under the <a href="https://github.com/ThejasRajamoney/Artifacta/blob/main/LICENSE">Apache License 2.0</a>.</p>
+      <p class="footer-copy">&copy; 2026 Artifacta contributors.</p>
+    </div>
+  </footer>
+</body>
+</html>

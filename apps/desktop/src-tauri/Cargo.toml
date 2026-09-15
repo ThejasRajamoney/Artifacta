@@ -1,0 +1,43 @@
+[package]
+name = "artifacta-desktop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Artifacta local-first Windows security triage desktop host"
+
+[lib]
+name = "artifacta_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.6.3", features = [] }
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+tauri = { version = "2.11.5", features = [] }
+tauri-plugin-dialog = "2.7.2"
+tauri-plugin-single-instance = "2.4.3"
+tempfile.workspace = true
+tf-archive = { path = "../../../crates/tf-archive" }
+tf-case = { path = "../../../crates/tf-case" }
+tf-evtx = { path = "../../../crates/tf-evtx" }
+tf-model = { path = "../../../crates/tf-model" }
+tf-pcap = { path = "../../../crates/tf-pcap" }
+tf-pe = { path = "../../../crates/tf-pe" }
+tf-report = { path = "../../../crates/tf-report" }
+tf-store = { path = "../../../crates/tf-store" }
+tf-yara = { path = "../../../crates/tf-yara" }
+time.workspace = true
+ulid.workspace = true
+
+[dev-dependencies]
+hex = "0.4"
+rusqlite.workspace = true
+
+[features]
+default = ["custom-protocol"]
+custom-protocol = ["tauri/custom-protocol"]

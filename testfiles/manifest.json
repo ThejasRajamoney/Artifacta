@@ -1,0 +1,897 @@
+[
+  {
+    "file": "01_signed_selfsigned_valid.exe",
+    "category": "normal signed EXE",
+    "size": 3440,
+    "sha256": "5d3b8afadfa447dd774d66fd7920c2e62fbc9e813f3a8fcbee00ef9a00319a83",
+    "md5": "af98526a7056dd40a64a9c6f29668c6f",
+    "expected": [
+      "PE64",
+      "embedded Authenticode certificate table present",
+      "CMS signature should be cryptographically verifiable",
+      "self-signed publisher should NOT be treated as trusted",
+      "3 imported functions",
+      "benign URL"
+    ],
+    "notes": "Cryptographically self-signed synthetic fixture; publisher trust should not be inferred."
+  },
+  {
+    "file": "02_normal_unsigned.exe",
+    "category": "normal unsigned EXE",
+    "size": 2048,
+    "sha256": "632c080f7e6a87283befdc1e6aa8cdafaaeed24e8bf262dfcb89badaedbe4f5f",
+    "md5": "c18944e68e0c097eaf8c5c8d752c5a16",
+    "expected": [
+      "PE64",
+      "no Authenticode certificate",
+      "ordinary imports",
+      "low-noise strings"
+    ],
+    "notes": ""
+  },
+  {
+    "file": "03_dotnet_managed.exe.hex",
+    "category": ".NET app",
+    "size": 3072,
+    "sha256": "f2c093e9e88265ba3f13e97ee11178d91debba512e6e93f909f95e6d072e615d",
+    "md5": "d2a8af35e11b0219a58b0fc13b060054",
+    "expected": [
+      "PE64",
+      "CLR data directory present",
+      "BSJB metadata root",
+      "mscoree.dll!_CorExeMain",
+      "managed-style strings"
+    ],
+    "notes": ""
+  },
+  {
+    "file": "04_qt_app.exe",
+    "category": "Qt app",
+    "size": 2560,
+    "sha256": "aa728f9e13f190500a6e8571a3111b7cbac88b2d94d4b0a77692e834431792f8",
+    "md5": "312e52459ee38ef12efdab1bcbddc27a",
+    "expected": [
+      "PE64",
+      "Qt5Core/Qt5Network/Qt5Widgets imports",
+      "network URL indicator",
+      "CreateProcessW contextual capability"
+    ],
+    "notes": ""
+  },
+  {
+    "file": "05_packed_benign.exe",
+    "category": "packed benign sample",
+    "size": 133632,
+    "sha256": "d1735edf4b9901d555ca9ec9b430dd297a8a7f65dd0ff5251341e9d393426d5e",
+    "md5": "21fc1aeb88f804eea0c2513ce7f75469",
+    "expected": [
+      "PE64",
+      "large high-entropy .packed section",
+      "VirtualProtect import",
+      "should be suspicious/packed context but NOT malware verdict"
+    ],
+    "notes": "Contains deterministic random bytes only; no unpacking or malicious code."
+  },
+  {
+    "file": "06_malware_like_INERT.exe",
+    "category": "known-malware-style SAFE fixture",
+    "size": 2560,
+    "sha256": "0779d3beef44059e07b5e73c04835cf4cc502bbb4c4ed064cf0a8dcf220c4a8f",
+    "md5": "532a0901c65e89005ee4229efbc3807b",
+    "expected": [
+      "PE64",
+      "process injection primitive imports",
+      "persistence/service imports",
+      "network imports",
+      "anti-debug import",
+      "PowerShell/command/registry/URL indicators",
+      "should generate multiple capability findings"
+    ],
+    "notes": "INERT synthetic fixture: imports and strings only. It does not implement or execute malicious behavior."
+  },
+  {
+    "file": "07_malformed_pe.exe",
+    "category": "malformed PE",
+    "size": 700,
+    "sha256": "8397a4103a30279a8abe853a86eed5bbba21b8b64a9f1fb4a82759481d7418fe",
+    "md5": "97bf763215263345d1318c90d5d30839",
+    "expected": [
+      "MZ and PE signatures present",
+      "section points far beyond EOF",
+      "analyzer should fail safely / record coverage error",
+      "must not crash worker"
+    ],
+    "notes": ""
+  },
+  {
+    "file": "08_ctf_reversing.exe",
+    "category": "CTF reversing binary",
+    "size": 3072,
+    "sha256": "92a29f93732a1cd75af7e42cf2ac098209535b3d2068b23c01cb462b90f05930",
+    "md5": "424927bba4bf85a35849ebcf970ae786",
+    "expected": [
+      "PE64",
+      "flag is XOR-encoded, not present in plaintext",
+      "XOR key 0x5A stored near encoded blob",
+      "Correct/Wrong/flag-format clues",
+      "IsDebuggerPresent import"
+    ],
+    "notes": "Expected decoded flag: TRIVARNA{traceforge_static_re_fixture}"
+  },
+  {
+    "file": "09_compare_app_v1.exe",
+    "category": "artifact comparison v1",
+    "size": 2048,
+    "sha256": "b9ad2a1724fbf7bafdbd458a97277a0a4a58a3d9aec9caf6cdf5623b6ebb7f9a",
+    "md5": "579f411330b840139ddf977976ae5134",
+    "expected": [
+      "PE64",
+      "baseline imports/strings",
+      "version=1.0"
+    ],
+    "notes": ""
+  },
+  {
+    "file": "10_compare_app_v2.exe",
+    "category": "artifact comparison v2",
+    "size": 2048,
+    "sha256": "1dea6bb73232acc346f50ce44962d4b0801faef5d97dfd59523abb300ecf63ab",
+    "md5": "7d72b7b3c1e0b748a60f5ea5a7903a3c",
+    "expected": [
+      "PE64",
+      "adds CreateProcessW",
+      "adds WinHttpSendRequest",
+      "changes URL/version",
+      "adds powershell.exe string"
+    ],
+    "notes": ""
+  },
+  {
+    "file": "11_pe32_minimal.exe",
+    "category": "PE format",
+    "size": 1024,
+    "sha256": "90e5f16d57e4191c404a794cde2e2aafa4ad3b9e79f43cfc3f89e23c4b448cf7",
+    "md5": "acc038ebf3c22e17632442f5a0628823",
+    "expected": [
+      "PE32",
+      "minimal structure",
+      "single .text section"
+    ],
+    "notes": "Bare minimum PE32 with empty .text section."
+  },
+  {
+    "file": "12_pe64_minimal.exe",
+    "category": "PE format",
+    "size": 1024,
+    "sha256": "7632fa5c20d1b56e6cc2fd0ae48377cbfd034e2c9409ec8e98eace1e20dc7eaf",
+    "md5": "3ca9737b0a206aa685f5aef413df8a11",
+    "expected": [
+      "PE64",
+      "minimal structure",
+      "single .text section"
+    ],
+    "notes": "Bare minimum PE64 with empty .text section."
+  },
+  {
+    "file": "13_pe32_plus.exe",
+    "category": "PE format",
+    "size": 1024,
+    "sha256": "a2cdcccd891ed63569512c1c2c8b0b3b4134343e0f7e8c3d5139f48a00e34275",
+    "md5": "46558770095d265c8b56f28a828ce661",
+    "expected": [
+      "PE64",
+      "PE32+ magic",
+      "low image base"
+    ],
+    "notes": "PE32+ with low image base typical of PE32+ binaries."
+  },
+  {
+    "file": "14_unusual_alignment.exe",
+    "category": "PE format",
+    "size": 1280,
+    "sha256": "184179ef95f9318a3a7f8abc4ef3f730a18dce0921b1b1b0037dd82bdda90c0c",
+    "md5": "f468a2262399baf8b527320d0f756d87",
+    "expected": [
+      "PE64",
+      "non-standard alignment",
+      "section=0x200 file=0x100"
+    ],
+    "notes": "Non-standard section and file alignment values."
+  },
+  {
+    "file": "15_truncated_header.exe",
+    "category": "PE format",
+    "size": 80,
+    "sha256": "1744bf1717ae79b53ed232f61f7de9b518f85d78c5f73f91b050c6dd3c50c742",
+    "md5": "1085c2bb8697390bf73a786aeeb5ece6",
+    "expected": [
+      "truncated headers",
+      "should fail safely",
+      "must not crash parser"
+    ],
+    "notes": "Truncated optional header; parser should reject safely."
+  },
+  {
+    "file": "16_corrupt_directory.exe",
+    "category": "PE format",
+    "size": 1024,
+    "sha256": "e600a1a465896066a74b8ff1e68be5e23df3c0c448514e23e3011f1387a02a35",
+    "md5": "14c06e7d5400af60f5edca135763456c",
+    "expected": [
+      "corrupt import directory",
+      "directory points beyond EOF"
+    ],
+    "notes": "Import directory entry points far beyond file end."
+  },
+  {
+    "file": "17_msvc_like.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "a69def1ba74f20574d69da7abc400996966688ef9cfed1042985e69c08f910d2",
+    "md5": "a0b3e4e2f24c19defd8c45e5a14408e9",
+    "expected": [
+      "PE64",
+      "MSVC-style imports",
+      "kernel32 + msvcrt"
+    ],
+    "notes": "Simulates MSVC-compiled binary import pattern."
+  },
+  {
+    "file": "18_mingw_like.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "20dbfb0b108bc1a715453d6e4fad20528db9543c9071f7dfc410792284489cbe",
+    "md5": "84b1e3014d22caaa05f88905701e5ef5",
+    "expected": [
+      "PE64",
+      "MinGW-style imports",
+      "libgcc + msvcrt"
+    ],
+    "notes": "Simulates MinGW-compiled binary import pattern."
+  },
+  {
+    "file": "19_rust_like.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "e474ee7a1da4f7683d25bbf7de4e318ce681579820b21db20fc850edf9838f29",
+    "md5": "368034df2688a43c50b738e0fc90bf00",
+    "expected": [
+      "PE64",
+      "Rust-like imports",
+      "kernel32 + msvcrt rust symbols"
+    ],
+    "notes": "Simulates Rust binary import pattern."
+  },
+  {
+    "file": "20_go_like.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "b9f3ccf7b147296b64cad8c63d2b07f80bf0823b35f98785b76e3d53a5112e3e",
+    "md5": "127a48fb0ded8b6a7847caf7a363833b",
+    "expected": [
+      "PE64",
+      "Go-like imports",
+      "runtime.main, runtime.gopanic"
+    ],
+    "notes": "Simulates Go binary import pattern."
+  },
+  {
+    "file": "21_dotnet_v2.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "2e3ad6772e1d7b8ba42040b264c5722b70881b056e2423d72167e6858d59ad8c",
+    "md5": "c80262c7b2b923a6f58e7e005049388c",
+    "expected": [
+      "PE64",
+      "CLR header present",
+      ".NET v2 style",
+      "mscoree.dll!_CorExeMain"
+    ],
+    "notes": "Simulates .NET v2 CLR executable."
+  },
+  {
+    "file": "22_dotnet_v4.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "7683cd2c23de47902206a5740c3c940a95aaab0a2fb8fd2f694f82d6a5c27c26",
+    "md5": "8682b3311f56e95e92d173f45bf1a2ba",
+    "expected": [
+      "PE64",
+      "CLR header present",
+      ".NET v4 style",
+      "mscoree.dll!_CorExeMain"
+    ],
+    "notes": "Simulates .NET v4 CLR executable."
+  },
+  {
+    "file": "23_qt_network.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "bb992f2ac593db7702526c5f4604b4b863307df237d559dbde49b1f1f7383595",
+    "md5": "0d14ebaa98ba4771204c30f8a912d806",
+    "expected": [
+      "PE64",
+      "Qt imports",
+      "Qt5Core + Qt5Network"
+    ],
+    "notes": "Simulates Qt application with network imports."
+  },
+  {
+    "file": "24_qt_widgets.exe",
+    "category": "compiler",
+    "size": 2048,
+    "sha256": "b4fc6459d8659350f209cfe0c74792e425aaa5f15963481035e24f7756f13567",
+    "md5": "68c369f6fe98be7c5fc5bdc659ea45c4",
+    "expected": [
+      "PE64",
+      "Qt imports",
+      "Qt5Core + Qt5Widgets + Qt5Gui"
+    ],
+    "notes": "Simulates Qt application with widget imports."
+  },
+  {
+    "file": "25_unsigned_normal.exe",
+    "category": "signature",
+    "size": 1536,
+    "sha256": "08711a1fe57969a981f21ce99a5b23dc5910e5a703561e26e6a115fe47804267",
+    "md5": "f76f2704f01060fa09403c7c68fa476a",
+    "expected": [
+      "PE64",
+      "no Authenticode certificate",
+      "unsigned"
+    ],
+    "notes": "Normal unsigned PE executable."
+  },
+  {
+    "file": "26_selfsigned_cert.exe",
+    "category": "signature",
+    "size": 2048,
+    "sha256": "0ecdfcd16977a9e108e9f4e93cd58c50ec9762feb466eda6492e81121cc4751d",
+    "md5": "fd0096549a7fa02bdc428a6aebd0d87c",
+    "expected": [
+      "PE64",
+      "embedded certificate table",
+      "self-signed stub"
+    ],
+    "notes": "Has WIN_CERTIFICATE stub; self-signed, not trusted."
+  },
+  {
+    "file": "27_invalid_digest.exe",
+    "category": "signature",
+    "size": 1536,
+    "sha256": "08711a1fe57969a981f21ce99a5b23dc5910e5a703561e26e6a115fe47804267",
+    "md5": "f76f2704f01060fa09403c7c68fa476a",
+    "expected": [
+      "PE64",
+      "invalid image digest",
+      "no certificate table"
+    ],
+    "notes": "Missing certificate table; digest should be invalid."
+  },
+  {
+    "file": "28_invalid_cms.exe",
+    "category": "signature",
+    "size": 2048,
+    "sha256": "18528ac46803d2d38844e586fc305e5be75bc9f0337e47b922532fd11fa686ff",
+    "md5": "f63b2261b51687e02377ca252807b6be",
+    "expected": [
+      "PE64",
+      "malformed CMS signature",
+      "invalid certificate data"
+    ],
+    "notes": "Contains malformed CMS signature data."
+  },
+  {
+    "file": "29_multiple_certs.exe",
+    "category": "signature",
+    "size": 2048,
+    "sha256": "4c6a3d17519b04987cf34a63dacff724a7cb50eb8ac2e9acede88e5524ff03ba",
+    "md5": "c2e82529c715e08d28804f5ff230e1f0",
+    "expected": [
+      "PE64",
+      "multiple WIN_CERTIFICATE entries",
+      "certificate chain"
+    ],
+    "notes": "Multiple certificate entries appended after sections."
+  },
+  {
+    "file": "30_no_certificate_table.exe",
+    "category": "signature",
+    "size": 1536,
+    "sha256": "08711a1fe57969a981f21ce99a5b23dc5910e5a703561e26e6a115fe47804267",
+    "md5": "f76f2704f01060fa09403c7c68fa476a",
+    "expected": [
+      "PE64",
+      "explicitly no certificate table",
+      "SECURITY directory zeroed"
+    ],
+    "notes": "Security directory explicitly zeroed."
+  },
+  {
+    "file": "31_writable_executable.exe",
+    "category": "structural",
+    "size": 1024,
+    "sha256": "48f473291017d68da7fd69c9ef47c09599e3b3a554db415e8615340eb30133e5",
+    "md5": "9c984b2a91b708b1edc3a3edd0f5aaaa",
+    "expected": [
+      "PE64",
+      "W+X section permissions",
+      "writable executable section"
+    ],
+    "notes": "Section has both write and execute permissions."
+  },
+  {
+    "file": "32_high_entropy_section.exe",
+    "category": "structural",
+    "size": 1536,
+    "sha256": "343242efbecf09df3978f5d8a7c58d173db145ad0296169b934b5c2eac1556eb",
+    "md5": "6fa580f4fdfdee927d7afc338af04bc9",
+    "expected": [
+      "PE64",
+      "high entropy .text section"
+    ],
+    "notes": ".text section contains high-entropy deterministic data."
+  },
+  {
+    "file": "33_high_entropy_resource.exe",
+    "category": "structural",
+    "size": 2560,
+    "sha256": "9ce9fea7bd5bb78bbc6c51cce6c08cc80954fd9fa004e85c51eccceb9451056e",
+    "md5": "d435a84e5309027a09644bc7c3383aad",
+    "expected": [
+      "PE64",
+      "high entropy .rsrc section"
+    ],
+    "notes": ".rsrc section contains high-entropy deterministic data."
+  },
+  {
+    "file": "34_overlay_data.exe",
+    "category": "structural",
+    "size": 2304,
+    "sha256": "6c78e52393132d6620ad46aad2cd91f6d3476ae009df13c33a14c30cdf16f398",
+    "md5": "1aeecc3dbf5d0f11d44aff64e0e44f10",
+    "expected": [
+      "PE64",
+      "overlay data present",
+      "data appended after sections"
+    ],
+    "notes": "Extra data appended after last section."
+  },
+  {
+    "file": "35_certificate_tail.exe",
+    "category": "structural",
+    "size": 1792,
+    "sha256": "87bf30ab40b89c9981d7e96eaa34949c1ba7ba9e0a05c1a713354953a4224d6a",
+    "md5": "3f13e4d62d84f20e572cdebe46f06773",
+    "expected": [
+      "PE64",
+      "certificate data after EOF",
+      "tail certificate"
+    ],
+    "notes": "Certificate-like data appended after aligned EOF."
+  },
+  {
+    "file": "36_unusual_section_names.exe",
+    "category": "structural",
+    "size": 2048,
+    "sha256": "2e83cdd7601c06dd7925ce12b014297131f4fb2801584f15af1d2cfbdc1e6aba",
+    "md5": "020450aa90fd17061bac40e5fdf20f41",
+    "expected": [
+      "PE64",
+      "unusual section names",
+      ".abc123!, UPX0, ndata"
+    ],
+    "notes": "Non-standard section names."
+  },
+  {
+    "file": "37_tls_callbacks.exe",
+    "category": "structural",
+    "size": 1024,
+    "sha256": "8d3345a6962b2402cc9e2f3a2f1480efe5c3a685c1eb78fb0ab457a9603d585e",
+    "md5": "1de29d660e83768b85c1877aeedf2e28",
+    "expected": [
+      "must not crash worker"
+    ],
+    "notes": "TLS directory entry present but section data is zeroed; parser rejects safely."
+  },
+  {
+    "file": "38_load_config.exe",
+    "category": "structural",
+    "size": 1024,
+    "sha256": "3ecef6604a074f4c2917ff1162e1c34ba963a6596976bced687881b01b981630",
+    "md5": "9f7921dd6c78386e57f27fc64c911656",
+    "expected": [
+      "must not crash worker"
+    ],
+    "notes": "Load Config directory entry present but section data is zeroed; parser rejects safely."
+  },
+  {
+    "file": "39_relocations.exe",
+    "category": "structural",
+    "size": 1024,
+    "sha256": "918d27a13dc1e5a8da02aebd75dfbca8be793c511c47a4057ccc2ccc6467c123",
+    "md5": "7acbd69ea6d6cf646c196f0e5bf138b3",
+    "expected": [
+      "must not crash worker"
+    ],
+    "notes": "Base relocation directory entry present but section data is zeroed; parser rejects safely."
+  },
+  {
+    "file": "40_export_table.exe",
+    "category": "structural",
+    "size": 1536,
+    "sha256": "a07edc35e8d1f541168e5cd746c88b47846331199efa3bdc317d47b33dad95cd",
+    "md5": "e11e173f65acb8f4dfa7236c03f0542b",
+    "expected": [
+      "PE64",
+      "DLL with exports",
+      "3 exported functions"
+    ],
+    "notes": "DLL with export table."
+  },
+  {
+    "file": "41_no_imports.exe",
+    "category": "structural",
+    "size": 1024,
+    "sha256": "7632fa5c20d1b56e6cc2fd0ae48377cbfd034e2c9409ec8e98eace1e20dc7eaf",
+    "md5": "3ca9737b0a206aa685f5aef413df8a11",
+    "expected": [
+      "PE64",
+      "no imports",
+      "empty import directory"
+    ],
+    "notes": "PE with no import table."
+  },
+  {
+    "file": "42_large_import_table.exe",
+    "category": "structural",
+    "size": 3072,
+    "sha256": "64bc781fffe60860e34d4cacbc2869d0cef2c3dd8cc0a6a8b11a8c4c35be133f",
+    "md5": "f2f16d00b623a68e9995e320e79ef259",
+    "expected": [
+      "PE64",
+      "50 imported functions",
+      "2 DLLs"
+    ],
+    "notes": "Large import table with 50 functions across 2 DLLs."
+  },
+  {
+    "file": "43_process_injection.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "6d05002759dc829de4dec058656bd2aedcae7c9b43b178908e5a49eb2b3c6c4d",
+    "md5": "49beb42eeb94d26fd3fcedc25a5c5e54",
+    "expected": [
+      "PE64",
+      "process injection imports",
+      "VirtualAllocEx+WriteProcessMemory+CreateRemoteThread"
+    ],
+    "notes": "INERT: import strings only. No actual injection code."
+  },
+  {
+    "file": "44_near_miss_injection.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "bcc3ba2c68d288b71971eb3e89ad95d6888f271f278c682f91c20a9cdce8a20c",
+    "md5": "81aad6df3f50693c33baef3bf032cd2b",
+    "expected": [
+      "PE64",
+      "partial injection imports",
+      "missing CreateRemoteThread"
+    ],
+    "notes": "INERT: similar to 43 but missing one key function."
+  },
+  {
+    "file": "45_run_persistence.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "6a525e9c3ac47a76d898cccbce324f9d1f1be56ce2cd787d0b1491fb5d4a7eaf",
+    "md5": "216357b3b30f0f28aefb3d0a4e1ac632",
+    "expected": [
+      "PE64",
+      "run key registry APIs",
+      "RegOpenKeyExA+RegSetValueExA"
+    ],
+    "notes": "INERT: import strings only. No actual persistence code."
+  },
+  {
+    "file": "46_service_persistence.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "3f3451a9db6b6b1fc021ddce1279e3e7fda496aa059060e1368bc0f0688216f2",
+    "md5": "8c3d073972b225aac13a822b90eeef3b",
+    "expected": [
+      "PE64",
+      "service persistence imports",
+      "OpenSCManagerA+CreateServiceA"
+    ],
+    "notes": "INERT: import strings only. No actual service creation."
+  },
+  {
+    "file": "47_network_exec.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "3780d8b47e78527f659309319977d748bcd5571cc4be80167b238e8ccbe29b3a",
+    "md5": "eb5ac938c0c80d069ab6f517bfbcf232",
+    "expected": [
+      "PE64",
+      "network download + execution",
+      "URLDownloadToFileA+ShellExecuteA"
+    ],
+    "notes": "INERT: import strings only. No actual network activity."
+  },
+  {
+    "file": "48_network_only.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "a716d9568450f1d24b8052260377c36cd4bf0607fe61dce2db770fbb6a37267e",
+    "md5": "4a1d155b848abd81de59760aa1902955",
+    "expected": [
+      "PE64",
+      "network download without execution",
+      "URLDownloadToFileA only"
+    ],
+    "notes": "INERT: download capability without execution."
+  },
+  {
+    "file": "49_exec_only.exe",
+    "category": "capability",
+    "size": 1536,
+    "sha256": "8fcf22e7192b4c30f52268c728c31f64caa94f5fec29dee7d5ee3b12c319c07b",
+    "md5": "e962b450b39c0d06cc71f5555e7b574c",
+    "expected": [
+      "PE64",
+      "execution without network",
+      "ShellExecuteA only"
+    ],
+    "notes": "INERT: execution capability without network."
+  },
+  {
+    "file": "50_admin_manifest.exe",
+    "category": "capability",
+    "size": 2048,
+    "sha256": "b51646a6e26a4cf81dee05c873ae0f4e9f2fc7db253799a486ccfee37ecec0e4",
+    "md5": "d1da5516669db82e0cd34e5342299ba6",
+    "expected": [
+      "PE64",
+      "requireAdministrator manifest",
+      "elevation request"
+    ],
+    "notes": "INERT: manifest requests admin elevation."
+  },
+  {
+    "file": "51_entropy_noise.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "c85ef09af0ab26053b3e8a3675d0e568481744787797f32ea2b94d95d8130211",
+    "md5": "e9c96f2f9d257c1633850c1910cf2691",
+    "expected": [
+      "PE64",
+      "random dotted strings",
+      "entropy noise"
+    ],
+    "notes": "Section contains random printable strings."
+  },
+  {
+    "file": "52_false_dll_domain.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "109ed13f6926a33e38426137be3e76d019850434db2817f466d2c3fa266aa5c1",
+    "md5": "16bdd996ac56eec93ca16251c02608eb",
+    "expected": [
+      "PE64",
+      "DLL domain",
+      "executable set as DLL"
+    ],
+    "notes": "PE marked as DLL (IMAGE_FILE_DLL)."
+  },
+  {
+    "file": "53_false_exe_domain.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "08711a1fe57969a981f21ce99a5b23dc5910e5a703561e26e6a115fe47804267",
+    "md5": "f76f2704f01060fa09403c7c68fa476a",
+    "expected": [
+      "PE64",
+      "EXE domain",
+      "executable marked as EXE"
+    ],
+    "notes": "Standard executable marking."
+  },
+  {
+    "file": "54_unicode_strings.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "c8b47846376aa273c36d2add61d532f24ae1b99a2d320c4b422cd3f119059f41",
+    "md5": "b854d1365e14cf15f4de404faab3afab",
+    "expected": [
+      "PE64",
+      "Unicode strings present"
+    ],
+    "notes": "Section contains UTF-16LE strings."
+  },
+  {
+    "file": "55_ipv4_indicator.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "3e1d325d16a9236d217e5e8b8f5fd2c3c3455220fb101cf4759d7e394f4718fb",
+    "md5": "2dcaebdd489a469006bdf770e137960d",
+    "expected": [
+      "PE64",
+      "IPv4 addresses embedded",
+      "192.168.1.100, 10.0.0.1"
+    ],
+    "notes": "Contains embedded IPv4 address strings."
+  },
+  {
+    "file": "56_invalid_ipv4.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "e2d83e7c1e9a1c71ecc64066b6815f2dd32fb05238c9aa30069daa45d65ed47c",
+    "md5": "c9eaba4ccebcb6b79f4396dedf0ae56f",
+    "expected": [
+      "PE64",
+      "invalid IPv4 addresses",
+      "999.999.999.999"
+    ],
+    "notes": "Contains obviously invalid IPv4 address strings."
+  },
+  {
+    "file": "57_registry_paths.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "25c60de14bdb8f5431b47ceabfdf6f1cbe877496480580a729eba4e10bb37cc3",
+    "md5": "2ae2d0b2cd6bc44f33b7de9af6c7a787",
+    "expected": [
+      "PE64",
+      "registry path strings",
+      "HKLM/HKCU paths"
+    ],
+    "notes": "Contains Windows registry path strings."
+  },
+  {
+    "file": "58_windows_paths.exe",
+    "category": "edge-case",
+    "size": 1536,
+    "sha256": "78578a8a3000003b637d581fe009445db8bec897fe320f2e7388dae04f605b86",
+    "md5": "b3bb82d17b7b746b12c75ae1440d8219",
+    "expected": [
+      "PE64",
+      "Windows file paths",
+      "C:\\, D:\\ paths"
+    ],
+    "notes": "Contains Windows file system path strings."
+  },
+  {
+    "file": "59_yara_positive.exe",
+    "category": "yara",
+    "size": 1536,
+    "sha256": "4ae6419dd9aaa2821fdcc6b52277fcdbd2ce74f4143974dc6aeeb80577729574",
+    "md5": "5f7681b251882fedb3695c31e6278053",
+    "expected": [
+      "PE64",
+      "YARA match pattern",
+      "flag format + suspicious URL"
+    ],
+    "notes": "Contains strings that should trigger YARA rules."
+  },
+  {
+    "file": "60_yara_negative.exe",
+    "category": "yara",
+    "size": 2048,
+    "sha256": "f62f95a0512c3bc1583f0f6b74715bc2394a19967e3b6feb4278828276736aa0",
+    "md5": "54865fe8b6c7e3ceaabb070c235e6a23",
+    "expected": [
+      "PE64",
+      "clean fixture",
+      "no YARA matches expected"
+    ],
+    "notes": "Clean fixture with no suspicious patterns."
+  },
+  {
+    "file": "61_section_oob.exe",
+    "category": "malformed",
+    "size": 512,
+    "sha256": "130dd3f91812a24137f16c1aa602f59d56969de7daa9ab99c38a7ab133b0ddf3",
+    "md5": "93ecd6a4075a85875c1c77e405f1b3c7",
+    "expected": [
+      "section points beyond EOF",
+      "must not crash"
+    ],
+    "notes": "Section header points far beyond file end."
+  },
+  {
+    "file": "62_directory_oob.exe",
+    "category": "malformed",
+    "size": 1024,
+    "sha256": "157c233a6279a0bfa01810c746c436bbabba9582052d3672bbbdebfd4fae5341",
+    "md5": "e55382e7fd767fe5503139952fec2fba",
+    "expected": [
+      "directory beyond EOF",
+      "must not crash"
+    ],
+    "notes": "Directory entry points beyond file end."
+  },
+  {
+    "file": "63_enormous_counts.exe",
+    "category": "malformed",
+    "size": 1024,
+    "sha256": "121d3dc9b402ca15786a351e4218c10f3c1a3493dfdaa481e02efda4e33f0a41",
+    "md5": "22b7865b4736847ba5a2acee568fe764",
+    "expected": [
+      "huge section count in COFF",
+      "must not crash"
+    ],
+    "notes": "COFF header declares 0xFFFF sections."
+  },
+  {
+    "file": "64_overlapping_sections.exe",
+    "category": "malformed",
+    "size": 2560,
+    "sha256": "72596899a5490a180f1fb7c4e712267526d634cd4a393db556bcd15b8d1ff6c2",
+    "md5": "d73c5c4a2bd70921c24532359c19349a",
+    "expected": [
+      "PE64",
+      "overlapping section ranges",
+      "anomaly",
+      "must not crash"
+    ],
+    "notes": "Two sections have overlapping virtual addresses."
+  },
+  {
+    "file": "65_compare_v1.exe",
+    "category": "comparison",
+    "size": 2048,
+    "sha256": "c3931b0bd381cddc369fec74afbffffe01e1acb02efa2168ab5f3fae313253eb",
+    "md5": "1c53205778461584b4fc701d4af4365f",
+    "expected": [
+      "PE64",
+      "baseline imports/strings",
+      "version=1.0",
+      "/v1 URL"
+    ],
+    "notes": "Version 1 baseline for artifact comparison."
+  },
+  {
+    "file": "66_compare_v2.exe",
+    "category": "comparison",
+    "size": 2048,
+    "sha256": "7082d6710b6c7891ef947c89fbe2acd75a765bc762e89f9281ae6eef43ead5a5",
+    "md5": "05c28b547241fb5241275938443608ec",
+    "expected": [
+      "PE64",
+      "baseline imports/strings",
+      "version=2.0",
+      "/v2 URL",
+      "adds powershell.exe string"
+    ],
+    "notes": "Version 2 with additional imports/strings for diff testing. Import table has empty function names; comparison relies on strings."
+  },
+  {
+    "file": "67_xor_clue.exe",
+    "category": "ctf-re",
+    "size": 2048,
+    "sha256": "02048af004ddf81388a17b646ab43d5cba389d6d9e0949e3a639a0a0c7b00db3",
+    "md5": "824780d7d0079d1c931d55d9b8687e8b",
+    "expected": [
+      "PE64",
+      "XOR-encoded data pattern",
+      "key 0x5A",
+      "IsDebuggerPresent"
+    ],
+    "notes": "Contains XOR-encoded data with key visible nearby."
+  },
+  {
+    "file": "68_anti_debug.exe",
+    "category": "ctf-re",
+    "size": 1536,
+    "sha256": "eaf20ac8bf0086c05b1f6e227732e1073ec1c251964dc676275c272393ae42c6",
+    "md5": "f6182eb5c360d70a0b48b6a5f6b8f7ca",
+    "expected": [
+      "PE64",
+      "anti-debug imports",
+      "IsDebuggerPresent+CheckRemoteDebuggerPresent"
+    ],
+    "notes": "INERT: anti-debug import strings only."
+  }
+]

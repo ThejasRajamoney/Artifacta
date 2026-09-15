@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download &mdash; Artifacta</title>
+  <meta name="description" content="Download Artifacta for Windows. Local-first static PE analysis tool.">
+  <meta property="og:title" content="Download Artifacta">
+  <meta property="og:description" content="Download Artifacta for Windows. Local-first static PE analysis tool.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://artifacta.dev/download.html">
+  <link rel="canonical" href="https://artifacta.dev/download.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F50D;</text></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">Artifacta</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="download.html" aria-current="page">Download</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="releases.html">Releases</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Download Artifacta</h1>
+  </section>
+
+  <div class="content">
+    <h2>Release Candidate: <span id="release-version">Loading...</span></h2>
+    <p>Candidate built: <span id="release-date">Loading...</span></p>
+
+    <div class="callout">
+      <p><strong>Artifacta is not an antivirus.</strong> It performs static analysis to help you understand executables. It does not detect, block, or remove malware.</p>
+    </div>
+
+    <div class="callout callout-warning">
+      <p><strong>Distribution is not approved.</strong> The 1.0.0 candidate still requires isolated Windows install, upgrade, and uninstall qualification. No stable public download is offered from this page.</p>
+    </div>
+
+    <table>
+      <tr><th>File</th><td><code id="release-file">Loading...</code></td></tr>
+      <tr><th>Platform</th><td>Windows x64 (Windows 10 or later)</td></tr>
+      <tr><th>Size</th><td id="release-size">Loading...</td></tr>
+      <tr><th>SHA-256</th><td><code id="release-sha">Loading...</code></td></tr>
+      <tr><th>Signed</th><td id="release-signed">Loading...</td></tr>
+    </table>
+
+    <div style="margin:1.5rem 0">
+      <a id="release-download" href="releases.html" class="btn btn-download" aria-disabled="true">Distribution not approved</a>
+    </div>
+
+    <div class="callout callout-warning">
+      <p><strong>Signed does not mean benign. Unsigned does not mean malicious.</strong> This candidate is unsigned. Any authorized test copy must be verified against its qualification SHA-256 checksum.</p>
+    </div>
+
+    <h2>Requirements</h2>
+    <ul>
+      <li>Windows 10 or later (x64)</li>
+      <li>100 MB free disk space</li>
+      <li>No internet connection required for analysis</li>
+    </ul>
+
+    <h2>Verify Your Download</h2>
+    <p>After downloading, verify the SHA-256 checksum to ensure file integrity:</p>
+    <pre><code>Get-FileHash .\Artifacta_1.0.0_x64-setup.exe -Algorithm SHA256</code></pre>
+    <p>Compare the output with the hash listed on the <a href="https://github.com/ThejasRajamoney/Artifacta/releases/latest">GitHub release page</a>.</p>
+
+    <h2>Source Code</h2>
+    <p>Artifacta is open-source. You can build from source or review the code:</p>
+    <p><a href="https://github.com/ThejasRajamoney/Artifacta">github.com/artifacta/artifacta</a></p>
+
+    <h2>SBOM</h2>
+    <p>An SPDX 2.3 Software Bill of Materials is included with each release.</p>
+
+    <h2>Release Notes</h2>
+    <p>1.0.0 release candidate with evidence-driven investigation, PE analysis, YARA-X, Authenticode, graph, chronology, and reports.</p>
+    <p>See the <a href="releases.html">full release history</a> for details.</p>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="https://github.com/ThejasRajamoney/Artifacta">Source Code</a></li>
+      </ul>
+      <p>Artifacta is free and open-source. Licensed under the <a href="https://github.com/ThejasRajamoney/Artifacta/blob/main/LICENSE">Apache License 2.0</a>.</p>
+      <p class="footer-copy">&copy; 2026 Artifacta contributors.</p>
+    </div>
+  </footer>
+  <script>
+    fetch("releases/latest.json")
+      .then((response) => {
+        if (!response.ok) throw new Error(`Release metadata returned ${response.status}`);
+        return response.json();
+      })
+      .then((release) => {
+        if (!/^\d+\.\d+\.\d+$/.test(release.version) || !/^[a-f0-9]{64}$/.test(release.sha256)) {
+          throw new Error("Release metadata is invalid");
+        }
+        document.querySelector("#release-version").textContent = `v${release.version}`;
+        document.querySelector("#release-date").textContent = new Date(`${release.released}T00:00:00Z`).toLocaleDateString(undefined, { dateStyle: "long", timeZone: "UTC" });
+        document.querySelector("#release-file").textContent = release.installer;
+        document.querySelector("#release-size").textContent = `${release.size.toLocaleString()} bytes`;
+        document.querySelector("#release-sha").textContent = release.sha256;
+        document.querySelector("#release-signed").textContent = release.signed ? "Yes" : "No (code signing certificate unavailable)";
+        const download = document.querySelector("#release-download");
+        if (release.publicationApproved === true && /^https:\/\//.test(release.url)) {
+          download.href = release.url;
+          download.target = "_blank";
+          download.rel = "noopener";
+          download.removeAttribute("aria-disabled");
+          download.textContent = "Download from GitHub";
+        } else {
+          download.href = "releases.html";
+          download.removeAttribute("target");
+          download.removeAttribute("rel");
+          download.setAttribute("aria-disabled", "true");
+          download.textContent = "Distribution not approved";
+        }
+      })
+      .catch(() => {
+        document.querySelector("#release-version").textContent = "Unavailable";
+        document.querySelector("#release-date").textContent = "Unavailable";
+        document.querySelector("#release-file").textContent = "Unavailable";
+        document.querySelector("#release-size").textContent = "Unavailable";
+        document.querySelector("#release-sha").textContent = "Unavailable";
+        document.querySelector("#release-signed").textContent = "Unavailable";
+      });
+  </script>
+</body>
+</html>

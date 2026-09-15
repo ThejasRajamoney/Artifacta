@@ -1,0 +1,9 @@
+Artifacta
+Copyright 2026 Artifacta contributors
+
+Repository: https://github.com/ThejasRajamoney/Artifacta
+Windows bundle publisher: Artifacta
+Security reports: https://github.com/ThejasRajamoney/Artifacta/security/advisories/new
+
+Installers are Authenticode-signed only when a trusted certificate is configured.
+Unsigned releases are explicitly identified and distributed with SHA-256 checksums.

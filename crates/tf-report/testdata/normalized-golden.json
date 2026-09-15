@@ -1,0 +1,93 @@
+{
+  "evidence": [
+    {
+      "class": "observed",
+      "kind": "pe.<section>",
+      "locator": { "offset": 12 },
+      "preview_text": "unsafe <b>preview</b>",
+      "value": { "a": 1, "z": "</script><script>bad()</script>" }
+    },
+    {
+      "class": "inferred",
+      "kind": "analysis.context",
+      "locator": { "index": 1 },
+      "preview_text": null,
+      "value": { "context": true }
+    }
+  ],
+  "edges": [
+    { "confidence": 1.0, "relationship": "imports" }
+  ],
+  "entities": [
+    {
+      "canonical_value": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "display_value": "<img src=x onerror=alert(1)>",
+      "entity_type": "artifact",
+      "metadata": { "kind": "pe64" }
+    },
+    {
+      "canonical_value": "kernel32.dll!createfilew",
+      "display_value": "KERNEL32.dll!CreateFileW",
+      "entity_type": "imported_api",
+      "metadata": {}
+    }
+  ],
+  "events": [
+    {
+      "event_type": "analysis_completed",
+      "reliability": "application_generated",
+      "summary": "Static analysis completed",
+      "timestamp_type": "application_generated"
+    }
+  ],
+  "findings": [
+    {
+      "category": "test",
+      "confidence": 0.9,
+      "confidence_band": "strong",
+      "evidence_roles": ["supports", "context"],
+      "rule_id": "TF-TEST-1",
+      "rule_version": "1",
+      "severity": "high",
+      "state": "new",
+      "title": "Suspicious <thing>"
+    }
+  ],
+  "manifest": {
+    "artifact_verification": "verified",
+    "hash_algorithm": "sha256",
+    "limitation": "Verification detects changes to covered bytes and records; it does not establish authenticity, intent, or safety.",
+    "record_type_counts": {
+      "analysis_run": 1,
+      "artifact": 1,
+      "case": 1,
+      "evidence": 2,
+      "finding": 1,
+      "provenance": 1,
+      "rule": 1
+    },
+    "report_format": "json",
+    "report_name": "case.json",
+    "schema_version": 1
+  },
+  "report": {
+    "artifact_kind": "pe64",
+    "case_title": "<script>alert('case')</script>",
+    "evidence_kinds": ["analysis.context", "pe.<section>"],
+    "finding_rules": ["TF-TEST-1"],
+    "limitations": [
+      "Static observations do not establish runtime behavior, intent, attribution, or safety.",
+      "Parser, extraction, rule, YARA, and local trust-store coverage may be incomplete.",
+      "Timestamps vary in reliability; attacker-controlled and filesystem metadata require corroboration.",
+      "Manifest verification is an integrity check only and makes no safety claim."
+    ],
+    "methodology": [
+      "Static, local analysis of the stored artifact; no execution is represented.",
+      "Findings are deterministic rule evaluations linked to exact evidence records.",
+      "Relationships and chronology are deterministic projections of persisted evidence.",
+      "SHA-256 provides change detection, not authorship, authenticity, or trust."
+    ],
+    "parameters_redacted": true,
+    "schema_version": 4
+  }
+}

@@ -1,0 +1,31 @@
+[package]
+name = "tf-case"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+md-5.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha1.workspace = true
+sha2.workspace = true
+tempfile.workspace = true
+tf-archive = { path = "../tf-archive" }
+tf-db = { path = "../tf-db" }
+tf-evtx = { path = "../tf-evtx" }
+tf-log = { path = "../tf-log" }
+tf-pcap = { path = "../tf-pcap" }
+tf-model = { path = "../tf-model" }
+tf-pe = { path = "../tf-pe" }
+tf-protocol = { path = "../tf-protocol" }
+tf-report = { path = "../tf-report" }
+tf-rules = { path = "../tf-rules" }
+tf-store = { path = "../tf-store" }
+tf-yara = { path = "../tf-yara" }
+thiserror.workspace = true
+time = { workspace = true, features = ["parsing"] }
+
+[dev-dependencies]
+tempfile.workspace = true

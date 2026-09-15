@@ -1,0 +1,19 @@
+[package]
+name = "tf-db"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+rusqlite.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tf-model = { path = "../tf-model" }
+tf-protocol = { path = "../tf-protocol" }
+thiserror.workspace = true
+time = { workspace = true, features = ["parsing"] }
+
+[dev-dependencies]
+tempfile.workspace = true
+tf-rules = { path = "../tf-rules" }

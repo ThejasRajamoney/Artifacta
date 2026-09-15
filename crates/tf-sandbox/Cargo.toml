@@ -1,0 +1,9 @@
+[package]
+name = "tf-sandbox"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0"
+publish = false
+
+[dependencies]
+thiserror.workspace = true

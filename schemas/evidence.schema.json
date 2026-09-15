@@ -1,0 +1,52 @@
+{
+  "$defs": {
+    "ObservationClass": {
+      "enum": [
+        "observed",
+        "inferred",
+        "unknown"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "artifact_id": {
+      "type": "string"
+    },
+    "class": {
+      "$ref": "#/$defs/ObservationClass"
+    },
+    "id": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "locator": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "preview_text": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "provenance_id": {
+      "type": "string"
+    },
+    "value": true
+  },
+  "required": [
+    "id",
+    "artifact_id",
+    "provenance_id",
+    "kind",
+    "class",
+    "locator",
+    "value"
+  ],
+  "title": "Evidence",
+  "type": "object"
+}

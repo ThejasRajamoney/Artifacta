@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  release:
+    name: Build Release
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Run all checks
+        run: |
+          cargo fmt --all -- --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-features
+          npm run check --workspace @artifacta/desktop
+          npm run test --workspace @artifacta/desktop
+      - name: Build release
+        run: npm run build --workspace @artifacta/desktop
+      - name: Extract version
+        id: version
+        shell: bash
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
+      - name: Generate release artifacts
+        shell: pwsh
+        run: |
+          $tag = "${{ steps.version.outputs.tag }}"
+          $version = ($tag -replace "^v", "") -replace "-.*$", ""
+          $releaseArgs = @("-Version", $version, "-InstallerPath", "target/release/bundle/nsis/Artifacta_${version}_x64-setup.exe")
+          if ($tag -match "-") {
+            $releaseArgs += @("-ReleaseTag", $tag, "-ReleaseChannel", "prerelease")
+          }
+          powershell -NoProfile -ExecutionPolicy Bypass -File tools/release.ps1 @releaseArgs
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          prerelease: ${{ contains(github.ref, '-') }}
+          files: |
+            release/*/Artifacta_*
+            release/*/SHA256SUMS
+            release/*/release-metadata.json
+            release/*/LICENSE.txt
+            release/*/NOTICE.txt
+            release/*/SIGNING-STATUS.txt
+            release/*/artifacta-*.spdx.json
+            release/*/artifacta-*.cdx.json
+            release/*/artifacta-*-source.tar.gz
+          generate_release_notes: true

@@ -1,0 +1,21 @@
+[package]
+name = "artifacta-cli"
+version = "1.0.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Headless CLI for Artifacta static investigation"
+publish = false
+
+[[bin]]
+name = "artifacta-cli"
+path = "src/main.rs"
+
+[dependencies]
+tf-case = { path = "../../crates/tf-case" }
+tf-log = { path = "../../crates/tf-log" }
+tf-model = { path = "../../crates/tf-model" }
+tf-report = { path = "../../crates/tf-report" }
+anyhow = "1"
+chrono = "0.4"
+clap = { version = "4", features = ["derive"] }
+dirs = "6"

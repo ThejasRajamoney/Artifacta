@@ -1,0 +1,17 @@
+{
+  "recorded_at": "2026-08-25",
+  "environment": {
+    "os": "Windows",
+    "rust": "1.98.0",
+    "profile": "test (unoptimized + debuginfo)",
+    "worktree": "local workspace without commit metadata",
+    "caveat": "Single informational invocation per workload; several cargo processes were launched concurrently and waited on build locks. These values are not regression thresholds."
+  },
+  "measurements": [
+    { "benchmark": "parser", "iterations": 25, "records": 38800, "elapsed_ms": 493 },
+    { "benchmark": "projection", "iterations": 100, "entities": 50100, "elapsed_ms": 1079 },
+    { "benchmark": "search", "iterations": 1000, "hits": 1000, "elapsed_ms": 77 },
+    { "benchmark": "report", "iterations": 500, "bytes": 2610500, "elapsed_ms": 70 },
+    { "benchmark": "comparison", "iterations": 100, "changes": 100000, "elapsed_ms": 733 }
+  ]
+}

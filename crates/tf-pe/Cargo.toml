@@ -1,0 +1,49 @@
+[package]
+name = "tf-pe"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+rust-version.workspace = true
+description = "Packaged disposable PE analyzer and bounded process runner"
+readme = "README.md"
+
+[features]
+default = []
+# Development-only parser access for differential testing and cargo-fuzz.
+dev-tools = []
+
+[dependencies]
+cms.workspace = true
+const-oid.workspace = true
+der.workspace = true
+md-5.workspace = true
+rsa.workspace = true
+serde_json.workspace = true
+sha1.workspace = true
+sha2.workspace = true
+tf-model = { path = "../tf-model" }
+tf-protocol = { path = "../tf-protocol" }
+thiserror.workspace = true
+x509-cert.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+tempfile.workspace = true
+windows-sys = { version = "=0.61.2", features = [
+    "Win32_Foundation",
+    "Win32_Security",
+    "Win32_Security_Authorization",
+    "Win32_Security_Cryptography",
+    "Win32_Security_Isolation",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Console",
+    "Win32_System_JobObjects",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Pipes",
+    "Win32_System_Threading",
+] }
+
+[dev-dependencies]
+tempfile.workspace = true
+tf-rules = { path = "../tf-rules" }

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Security &mdash; Artifacta</title>
+  <meta name="description" content="How Artifacta keeps your files safe. Local-first architecture, no uploads, no telemetry.">
+  <meta property="og:title" content="Security - Artifacta">
+  <meta property="og:description" content="How Artifacta keeps your files safe.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://artifacta.dev/security.html">
+  <link rel="canonical" href="https://artifacta.dev/security.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#x1F50D;</text></svg>">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-logo">Artifacta</a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="download.html">Download</a></li>
+        <li><a href="docs.html">Docs</a></li>
+        <li><a href="security.html" aria-current="page">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="releases.html">Releases</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <h1>Security</h1>
+  </section>
+
+  <div class="content">
+    <h2>Files Remain Local</h2>
+    <p>Artifacta performs all analysis on your local machine. No file you open, drop, or analyze is ever transmitted to an external server. Your artifacts stay on your device.</p>
+
+    <h2>No Execution</h2>
+    <p>Artifacta does not execute, run, or launch any analyzed artifact. Analysis is strictly static: it reads file structure and metadata without triggering any code.</p>
+
+    <h2>Static Analysis Limitations</h2>
+    <p>Static analysis examines a file without executing it. This approach has inherent limitations:</p>
+    <ul>
+      <li>Packed or encrypted code may not be fully visible</li>
+      <li>Runtime behavior cannot be observed statically</li>
+      <li>Some techniques require dynamic analysis to detect</li>
+    </ul>
+    <p>Artifacta focuses on what it can observe: PE structure, imports, resources, Authenticode signatures, and YARA rule matches.</p>
+
+    <div class="callout callout-warning">
+      <p><strong>Artifacta is not an antivirus.</strong> It performs static analysis to help you understand executables. It does not detect, block, or remove malware.</p>
+    </div>
+
+    <h2>Telemetry Policy</h2>
+    <p>Artifacta does not collect telemetry by default. No usage data, analytics, or telemetry of any kind is sent from the application.</p>
+
+    <h2>Network Policy</h2>
+    <p>During analysis, Artifacta makes no network connections. The only network activity is for downloading YARA rules you explicitly configure and checking for updates if you opt in.</p>
+
+    <h2>Vulnerability Reporting</h2>
+    <p>If you discover a security vulnerability, please report it through <a href="https://github.com/ThejasRajamoney/Artifacta/security/advisories/new" target="_blank" rel="noopener">GitHub private vulnerability disclosure</a>. Do not open a public issue for security vulnerabilities.</p>
+
+    <h2>Disclaimer</h2>
+    <div class="callout callout-warning">
+      <p><strong>Signed does not mean benign. Unsigned does not mean malicious.</strong> A digital signature proves identity, not trustworthiness.</p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="security.html">Security</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="https://github.com/ThejasRajamoney/Artifacta">Source Code</a></li>
+      </ul>
+      <p>Artifacta is free and open-source. Licensed under the <a href="https://github.com/ThejasRajamoney/Artifacta/blob/main/LICENSE">Apache License 2.0</a>.</p>
+      <p class="footer-copy">&copy; 2026 Artifacta contributors.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,975 @@
+{
+  "$defs": {
+    "EvidenceGroup": {
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/ReportEvidence"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "evidence"
+      ],
+      "type": "object"
+    },
+    "QuickCheck": {
+      "description": "Deterministic, non-verdict summary of active static-analysis findings.",
+      "properties": {
+        "band": {
+          "$ref": "#/$defs/SuspicionBand"
+        },
+        "evidence_families": {
+          "description": "Always contains all six families in canonical enum order.",
+          "items": {
+            "$ref": "#/$defs/QuickCheckFamilySummary"
+          },
+          "type": "array"
+        },
+        "finding_counts": {
+          "$ref": "#/$defs/QuickCheckFindingCounts"
+        },
+        "policy_sha256": {
+          "type": "string"
+        },
+        "policy_version": {
+          "type": "string"
+        },
+        "statement": {
+          "type": "string"
+        },
+        "top_findings": {
+          "items": {
+            "$ref": "#/$defs/QuickCheckTopFinding"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "policy_version",
+        "policy_sha256",
+        "band",
+        "finding_counts",
+        "top_findings",
+        "evidence_families",
+        "statement"
+      ],
+      "type": "object"
+    },
+    "QuickCheckEvidenceFamily": {
+      "description": "Independent evidence axes used by the versioned Quick Check policy.",
+      "enum": [
+        "structure",
+        "capability",
+        "indicator",
+        "signature_integrity",
+        "yara",
+        "metadata_anomaly"
+      ],
+      "type": "string"
+    },
+    "QuickCheckFamilySummary": {
+      "description": "One family in the aggregate, including transparent scoring suppression counts.",
+      "properties": {
+        "contributing_finding_count": {
+          "description": "Findings eligible to supply this family's single strongest scoring signal.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "family": {
+          "$ref": "#/$defs/QuickCheckEvidenceFamily"
+        },
+        "finding_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "strongest_severity": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Severity"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "family",
+        "finding_count",
+        "contributing_finding_count"
+      ],
+      "type": "object"
+    },
+    "QuickCheckFindingCounts": {
+      "description": "Counts of active findings before Quick Check correlation and family de-duplication.",
+      "properties": {
+        "contextual": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "high": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "low": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "medium": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "total": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "contextual",
+        "low",
+        "medium",
+        "high",
+        "total"
+      ],
+      "type": "object"
+    },
+    "QuickCheckTopFinding": {
+      "description": "A compact, plain-language finding selected for the Quick Check summary.",
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "evidence_family": {
+          "$ref": "#/$defs/QuickCheckEvidenceFamily"
+        },
+        "finding_id": {
+          "type": "string"
+        },
+        "severity": {
+          "$ref": "#/$defs/Severity"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "finding_id",
+        "title",
+        "category",
+        "severity",
+        "evidence_family"
+      ],
+      "type": "object"
+    },
+    "ReportAnalysisRun": {
+      "properties": {
+        "analyzer": {
+          "type": "string"
+        },
+        "analyzer_identity_sha256": {
+          "type": "string"
+        },
+        "analyzer_version": {
+          "type": "string"
+        },
+        "error_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "finished_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "started_at": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "analyzer",
+        "analyzer_version",
+        "started_at",
+        "status",
+        "analyzer_identity_sha256"
+      ],
+      "type": "object"
+    },
+    "ReportArtifact": {
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "md5": {
+          "type": "string"
+        },
+        "mime": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_name": {
+          "type": "string"
+        },
+        "parent_artifact_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "sha1": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "size_bytes": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "original_name",
+        "kind",
+        "size_bytes",
+        "sha256",
+        "sha1",
+        "md5",
+        "created_at"
+      ],
+      "type": "object"
+    },
+    "ReportAttackMapping": {
+      "properties": {
+        "tactic": {
+          "type": "string"
+        },
+        "technique_id": {
+          "type": "string"
+        },
+        "technique_name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "technique_id",
+        "technique_name",
+        "tactic"
+      ],
+      "type": "object"
+    },
+    "ReportBookmark": {
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_id": {
+          "type": "string"
+        },
+        "target_type": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "target_type",
+        "target_id",
+        "created_at",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "ReportCase": {
+      "properties": {
+        "app_identity_sha256": {
+          "type": "string"
+        },
+        "app_version": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "schema_version": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "created_at",
+        "updated_at",
+        "app_version",
+        "schema_version",
+        "status",
+        "app_identity_sha256"
+      ],
+      "type": "object"
+    },
+    "ReportChronologyEvent": {
+      "properties": {
+        "artifact_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "event_type": {
+          "type": "string"
+        },
+        "evidence_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "reliability": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "timestamp_type": {
+          "type": "string"
+        },
+        "timestamp_utc": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "timestamp_utc",
+        "timestamp_type",
+        "reliability",
+        "event_type",
+        "summary"
+      ],
+      "type": "object"
+    },
+    "ReportEvidence": {
+      "properties": {
+        "class": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "locator": {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        "preview_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": true
+      },
+      "required": [
+        "id",
+        "class",
+        "locator",
+        "value"
+      ],
+      "type": "object"
+    },
+    "ReportEvidenceReference": {
+      "properties": {
+        "evidence_id": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "evidence_id",
+        "role"
+      ],
+      "type": "object"
+    },
+    "ReportExplanation": {
+      "properties": {
+        "attack_mappings": {
+          "items": {
+            "$ref": "#/$defs/ReportAttackMapping"
+          },
+          "type": "array"
+        },
+        "limitations": {
+          "type": "string"
+        },
+        "observation": {
+          "type": "string"
+        },
+        "why_it_matters": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "observation",
+        "why_it_matters",
+        "limitations",
+        "attack_mappings"
+      ],
+      "type": "object"
+    },
+    "ReportFinding": {
+      "properties": {
+        "category": {
+          "type": "string"
+        },
+        "confidence": {
+          "format": "float",
+          "type": "number"
+        },
+        "confidence_band": {
+          "type": "string"
+        },
+        "explanation": {
+          "$ref": "#/$defs/ReportExplanation"
+        },
+        "explanation_template_id": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "linked_evidence": {
+          "items": {
+            "$ref": "#/$defs/ReportEvidenceReference"
+          },
+          "type": "array"
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "rule_version": {
+          "type": "string"
+        },
+        "severity": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "rule_id",
+        "rule_version",
+        "title",
+        "category",
+        "severity",
+        "confidence",
+        "confidence_band",
+        "state",
+        "explanation_template_id",
+        "explanation",
+        "linked_evidence"
+      ],
+      "type": "object"
+    },
+    "ReportIntegrityReference": {
+      "properties": {
+        "external_manifest": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "hash_algorithm": {
+          "type": "string"
+        },
+        "manifest_schema_version": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "snapshot_sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "hash_algorithm",
+        "snapshot_sha256",
+        "manifest_schema_version"
+      ],
+      "type": "object"
+    },
+    "ReportNote": {
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "entity_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "finding_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "body",
+        "created_at",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "ReportProvenance": {
+      "properties": {
+        "analyzer": {
+          "type": "string"
+        },
+        "analyzer_identity_sha256": {
+          "type": "string"
+        },
+        "analyzer_version": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "input_sha256": {
+          "type": "string"
+        },
+        "parameters_redacted": {
+          "type": "boolean"
+        },
+        "rule_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rule_pack_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rule_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "analyzer",
+        "analyzer_version",
+        "input_sha256",
+        "parameters_redacted",
+        "analyzer_identity_sha256"
+      ],
+      "type": "object"
+    },
+    "ReportProvenanceSummary": {
+      "properties": {
+        "analyzer_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "evidence_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "provenance_record_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rule_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "yara_pack_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "analyzer_count",
+        "provenance_record_count",
+        "rule_count",
+        "yara_pack_count",
+        "evidence_count"
+      ],
+      "type": "object"
+    },
+    "ReportRelationship": {
+      "properties": {
+        "confidence": {
+          "format": "float",
+          "type": "number"
+        },
+        "edge_id": {
+          "type": "string"
+        },
+        "evidence_id": {
+          "type": "string"
+        },
+        "relationship": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "source_entity_id": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "target_entity_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "edge_id",
+        "source_entity_id",
+        "source",
+        "relationship",
+        "target_entity_id",
+        "target",
+        "evidence_id",
+        "confidence"
+      ],
+      "type": "object"
+    },
+    "ReportRule": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "engine": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "engine",
+        "rule_id",
+        "version",
+        "source",
+        "license",
+        "sha256",
+        "enabled"
+      ],
+      "type": "object"
+    },
+    "ReportYaraPack": {
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "license": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "rule_count": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sha256": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "sha256",
+        "name",
+        "version",
+        "source",
+        "license",
+        "enabled",
+        "rule_count"
+      ],
+      "type": "object"
+    },
+    "Severity": {
+      "enum": [
+        "contextual",
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
+    },
+    "SuspicionBand": {
+      "enum": [
+        "no_strong_indicators",
+        "review",
+        "suspicious",
+        "high_suspicion"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Validated report data which excludes acquisition paths, store paths, and analyzer parameters.",
+  "properties": {
+    "analysis_run": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ReportAnalysisRun"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifact": {
+      "$ref": "#/$defs/ReportArtifact"
+    },
+    "attack_mapping_caveat": {
+      "type": "string"
+    },
+    "bookmarks": {
+      "items": {
+        "$ref": "#/$defs/ReportBookmark"
+      },
+      "type": "array"
+    },
+    "case": {
+      "$ref": "#/$defs/ReportCase"
+    },
+    "chronology": {
+      "items": {
+        "$ref": "#/$defs/ReportChronologyEvent"
+      },
+      "type": "array"
+    },
+    "chronology_reliability": {
+      "additionalProperties": {
+        "format": "uint32",
+        "minimum": 0,
+        "type": "integer"
+      },
+      "type": "object"
+    },
+    "evidence_by_kind": {
+      "items": {
+        "$ref": "#/$defs/EvidenceGroup"
+      },
+      "type": "array"
+    },
+    "findings": {
+      "items": {
+        "$ref": "#/$defs/ReportFinding"
+      },
+      "type": "array"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "integrity": {
+      "$ref": "#/$defs/ReportIntegrityReference"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "methodology": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "notes": {
+      "items": {
+        "$ref": "#/$defs/ReportNote"
+      },
+      "type": "array"
+    },
+    "provenance": {
+      "items": {
+        "$ref": "#/$defs/ReportProvenance"
+      },
+      "type": "array"
+    },
+    "provenance_summary": {
+      "$ref": "#/$defs/ReportProvenanceSummary"
+    },
+    "quick_check": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/QuickCheck"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "relationships": {
+      "items": {
+        "$ref": "#/$defs/ReportRelationship"
+      },
+      "type": "array"
+    },
+    "report_schema_version": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/ReportRule"
+      },
+      "type": "array"
+    },
+    "run_history": {
+      "items": {
+        "$ref": "#/$defs/ReportAnalysisRun"
+      },
+      "type": "array"
+    },
+    "yara_packs": {
+      "items": {
+        "$ref": "#/$defs/ReportYaraPack"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "report_schema_version",
+    "generated_at",
+    "case",
+    "artifact",
+    "run_history",
+    "provenance",
+    "rules",
+    "findings",
+    "attack_mapping_caveat",
+    "evidence_by_kind",
+    "relationships",
+    "chronology",
+    "chronology_reliability",
+    "notes",
+    "bookmarks",
+    "yara_packs",
+    "provenance_summary",
+    "methodology",
+    "limitations",
+    "integrity"
+  ],
+  "title": "ReportInput",
+  "type": "object"
+}

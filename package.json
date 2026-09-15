@@ -1,0 +1,25 @@
+{
+  "name": "artifacta-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Free, local-first Windows suspicious-file triage",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24 <25",
+    "npm": ">=11"
+  },
+  "workspaces": [
+    "apps/desktop"
+  ],
+  "scripts": {
+    "dev": "npm run tauri:dev --workspace @artifacta/desktop",
+    "build": "npm run tauri:build --workspace @artifacta/desktop",
+    "check": "npm run check --workspace @artifacta/desktop",
+    "test": "npm run test --workspace @artifacta/desktop",
+    "e2e": "npm run e2e --workspace @artifacta/desktop",
+    "e2e:probe": "npm run e2e:probe --workspace @artifacta/desktop",
+    "e2e:corpus": "npm run e2e:corpus --workspace @artifacta/desktop",
+    "release:check": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/release.ps1 -Version 1.0.0 -CheckOnly",
+    "release:prepare": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/release.ps1 -Version 1.0.0 -InstallerPath target/release/bundle/nsis/Artifacta_1.0.0_x64-setup.exe"
+  }
+}

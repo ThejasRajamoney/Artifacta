@@ -1,0 +1,14 @@
+[advisories]
+ignore = [
+    # tf-pe uses rsa only for public-key Authenticode verification. The Marvin attack
+    # concerns private-key operations, and the rsa 0.9 line has no fixed release.
+    "RUSTSEC-2023-0071",
+    # yara-x 1.20.0 (the latest release) requires wasmtime ^45.0.3, which has no
+    # patched 45.x release. Artifacta does not create cross-engine Wasmtime stores;
+    # revisit when yara-x moves to a patched Wasmtime release.
+    "RUSTSEC-2026-0222",
+    # RUSTSEC-2026-0269 is in wasmtime-wasi's filesystem implementation. The
+    # resolved YARA-X graph contains neither wasmtime-wasi nor cap-std and grants
+    # scanned rules no WASI filesystem. Revisit when YARA-X updates Wasmtime.
+    "RUSTSEC-2026-0269",
+]

@@ -1,0 +1,86 @@
+{
+  "$defs": {
+    "ConfidenceBand": {
+      "enum": [
+        "tentative",
+        "moderate",
+        "strong"
+      ],
+      "type": "string"
+    },
+    "FindingState": {
+      "enum": [
+        "new",
+        "reviewed",
+        "accepted",
+        "dismissed"
+      ],
+      "type": "string"
+    },
+    "Severity": {
+      "enum": [
+        "contextual",
+        "low",
+        "medium",
+        "high"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "analysis_run_id": {
+      "type": "string"
+    },
+    "artifact_id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "confidence": {
+      "format": "float",
+      "type": "number"
+    },
+    "confidence_band": {
+      "$ref": "#/$defs/ConfidenceBand"
+    },
+    "explanation_template_id": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "rule_id": {
+      "type": "string"
+    },
+    "rule_version": {
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/Severity"
+    },
+    "state": {
+      "$ref": "#/$defs/FindingState"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "id",
+    "analysis_run_id",
+    "artifact_id",
+    "rule_id",
+    "rule_version",
+    "title",
+    "category",
+    "severity",
+    "confidence",
+    "confidence_band",
+    "explanation_template_id",
+    "state"
+  ],
+  "title": "Finding",
+  "type": "object"
+}

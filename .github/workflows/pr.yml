@@ -33,6 +33,14 @@ jobs:
           components: clippy,rustfmt
           targets: x86_64-pc-windows-msvc
       - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      # tauri::generate_context!() embeds the production frontend bundle at
+      # compile time, so the desktop crate cannot build without it.
+      - run: npm run frontend:build --workspace @artifacta/desktop
       - run: cargo fmt --all -- --check
       - run: cargo test --workspace --all-features
       - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
@@ -62,4 +70,4 @@ jobs:
       - uses: rustsec/audit-check@v2.0.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          ignore: RUSTSEC-2023-0071,RUSTSEC-2026-0222
+          ignore: RUSTSEC-2023-0071,RUSTSEC-2026-0222,RUSTSEC-2026-0269

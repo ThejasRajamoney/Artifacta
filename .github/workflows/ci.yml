@@ -30,7 +30,10 @@ jobs:
         with:
           components: clippy
       - uses: Swatinem/rust-cache@v2
-      - run: cargo clippy --workspace --all-targets --all-features -- -D warnings
+      # The Tauri desktop crate is Windows-only (it links the desktop GUI
+      # stack). Cross-platform CI covers the pure-Rust workspace; desktop
+      # coverage runs on Windows in PR engineering checks and releases.
+      - run: cargo clippy --workspace --exclude artifacta-desktop --all-targets --all-features -- -D warnings
 
   test:
     name: Test (${{ matrix.os }})
@@ -42,7 +45,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
-      - run: cargo test --workspace --all-features
+      # The Tauri desktop crate is Windows-only. Fast cross-platform CI covers
+      # the pure-Rust workspace here; full desktop coverage runs on Windows in
+      # PR engineering checks and the release workflow.
+      - run: cargo test --workspace --exclude artifacta-desktop --all-features
         shell: bash
 
   frontend:

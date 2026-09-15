@@ -24,6 +24,8 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Build frontend bundle for desktop compile
+        run: npm run frontend:build --workspace @artifacta/desktop
       - name: Run all checks
         run: |
           cargo fmt --all -- --check

@@ -59,12 +59,11 @@ transitive and are not claims that every package is a direct dependency.
 
 ## GitHub release
 
-This source snapshot does not contain an automated GitHub release workflow.
-Before publication, a reviewed workflow must reproduce the documented Node 24
+The automated GitHub release workflow reproduces the documented Node 24
 frontend checks/tests/build, full Rust workspace tests, formatting, strict
-clippy, schema, golden, corpus, privacy, and NSIS release-package gates. Build
-jobs should be read-only; any publication job should consume only the exact
-qualified artifact set and use least-privilege `contents: write` permission.
+clippy, schema, golden, corpus, privacy, and NSIS release-package gates. It uses
+least-privilege `contents: write` permission to publish the qualified artifact
+set for tags matching `v*`.
 
 Pre-releases (tags like `v1.0.0-rc.1`) may be published for evaluation once the
 completion report records all non-destructive qualification gates as passing
@@ -73,9 +72,9 @@ require isolated Windows install, upgrade, Explorer-integration, and uninstall
 qualification plus explicit release approval, and must not occur until the
 completion report grants distribution approval.
 
-The canonical repository is `https://github.com/artifacta/artifacta`, the Windows
+The canonical repository is `https://github.com/ThejasRajamoney/Artifacta`, the Windows
 bundle publisher is `Artifacta`, and private security reports use
-`https://github.com/artifacta/artifacta/security/advisories/new`. Release
+`https://github.com/ThejasRajamoney/Artifacta/security/advisories/new`. Release
 automation must not configure signing or the updater implicitly. The release tool inspects Authenticode
 and emits `SIGNING-STATUS.txt`; without a trusted certificate the installer is
 explicitly marked `UNSIGNED`, never simulated as signed, and must be verified

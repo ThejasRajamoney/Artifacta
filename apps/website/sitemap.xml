@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://artifacta.dev/</loc>
+    <loc>https://thejasrajamoney.github.io/Artifacta/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://artifacta.dev/download.html</loc>
+    <loc>https://thejasrajamoney.github.io/Artifacta/download.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://artifacta.dev/security.html</loc>
+    <loc>https://thejasrajamoney.github.io/Artifacta/security.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://artifacta.dev/privacy.html</loc>
+    <loc>https://thejasrajamoney.github.io/Artifacta/privacy.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://artifacta.dev/docs.html</loc>
+    <loc>https://thejasrajamoney.github.io/Artifacta/docs.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://artifacta.dev/releases.html</loc>
+    <loc>https://thejasrajamoney.github.io/Artifacta/releases.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>

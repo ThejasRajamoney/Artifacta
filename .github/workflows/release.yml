@@ -34,7 +34,7 @@ jobs:
           npm run check --workspace @artifacta/desktop
           npm run test --workspace @artifacta/desktop
       - name: Build release
-        run: npm run build --workspace @artifacta/desktop
+        run: npm run tauri:build --workspace @artifacta/desktop
       - name: Extract version
         id: version
         shell: bash

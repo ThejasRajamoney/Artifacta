@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://artifacta.dev/sitemap.xml
+Sitemap: https://thejasrajamoney.github.io/Artifacta/sitemap.xml

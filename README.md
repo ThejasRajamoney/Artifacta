@@ -4,6 +4,7 @@
 [![License](https://img.shields.io/github/license/ThejasRajamoney/Artifacta)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%20x64-blue)](https://github.com/ThejasRajamoney/Artifacta/releases)
 [![Rust](https://img.shields.io/badge/built_with-Rust-orange)](https://www.rust-lang.org/)
+[![Website](https://img.shields.io/badge/website-documentation-4f46e5)](https://thejasrajamoney.github.io/Artifacta/)
 
 **Understand a suspicious Windows file without uploading it, executing it, or trusting anyone's verdict.**
 
